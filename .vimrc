@@ -1,7 +1,25 @@
+autocmd!
 " Use the Solarized Dark theme
 set background=dark
 colorscheme solarized
 let g:solarized_termtrans=1
+
+" have command-line completion <Tab> (for filenames, help topics, option names)
+" first list the available options and complete the longest common part, then
+" have further <Tab>s cycle through the possibilities:
+set wildmode=list:longest,full
+" display the current mode and partially-typed commands in the status line:
+set showmode
+set showcmd
+set cmdheight=2
+" don't have files trying to override this .vimrc:
+set nomodeline
+"Do not redraw, when running macros.. lazyredraw
+set lz
+"Set magic on
+set magic
+"show matching bracets
+set showmatch
 
 " Make Vim more useful
 set nocompatible
@@ -21,25 +39,19 @@ set gdefault
 set encoding=utf-8 nobomb
 " Change mapleader
 let mapleader=","
-" Don’t add empty newlines at the end of files
-set binary
-set noeol
+" have many lines of command-line history
+set history=400
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/backups
+set dir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
 
-" Don’t create backups when editing files in certain directories
-set backupskip=/tmp/*,/private/tmp/*
-
 " Respect modeline in files
 set modeline
 set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-set secure
 " Enable line numbers
 set number
 " Enable syntax highlighting
@@ -47,41 +59,57 @@ syntax on
 " Highlight current line
 set cursorline
 " Make tabs as wide as two spaces
-set tabstop=2
+set tabstop=4
+set sw=4
 " Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set lcs=tab:▸\ ,trail:·,nbsp:_
+set fillchars=stl:=,stlnc:-
 set list
 " Highlight searches
 set hlsearch
-" Ignore case of searches
+" make searches case-insensitive, unless they contain upper-case letters:
+" show the `best match so far' as search strings are typed:
 set ignorecase
-" Highlight dynamically as pattern is typed
+set smartcase
 set incsearch
 " Always show status line
 set laststatus=2
+set statusline=%<\ %F\ %m\ %r%h\ %w\ %y\ <%{&fileencoding},%{&fileformat}>\ \ %=%-14P\ Line:\ %l/%L:%c\ 
+
 " Enable mouse in all modes
 set mouse=a
+set mousemodel=popup
 " Disable error bells
 set noerrorbells
+set novisualbell
+set t_vb=
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 " Show the cursor position
 set ruler
 " Don’t show the intro message when starting Vim
-set shortmess=atI
-" Show the current mode
-set showmode
+set shortmess=atIr
 " Show the filename in the window titlebar
 set title
-" Show the (partial) command as it’s being typed
-set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
 " Start scrolling three lines before the horizontal window border
-set scrolloff=3
+set scrolloff=5
+
+" normally don't automatically format `text' as it is typed, IE only do this
+" with comments, at 79 characters:
+set formatoptions-=t
+set textwidth=120
+
+set autoread
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 tabstop=8
+au BufRead,BufNewFile *nginx* set ft=nginx expandtab shiftwidth=4 tabstop=4
+
+" Perl
+let perl_extended_vars=1
+set equalprg=perltidy
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
@@ -97,10 +125,19 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
 if has("autocmd")
+	set viewoptions=cursor,folds
 	" Enable file type detection
 	filetype on
+	filetype plugin on
+	filetype indent on
+	autocmd FileType xml,html,css,cs set noexpandtab tabstop=2 shiftwidth=2 formatoptions+=tl smartindent
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+	au BufWinLeave * mkview
+	au BufWinEnter * silent loadview
+	au FileType html,cheetah set ft=xml
+	au FileType html,cheetah set syntax=html
 endif
+
