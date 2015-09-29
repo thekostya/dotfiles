@@ -1,5 +1,10 @@
+[user]
+	email = thekostya@gmail.com
+	name = Konstantin Ryabov
+
 [alias]
 	l = log --pretty=oneline --graph --abbrev-commit --decorate --all
+    logg = log --graph --abbrev-commit --decorate --all --pretty=format:'%Cred%h%Creset (%Cblue%cn%Creset) %Cgreen%s%Creset'
 	s = status -s
 	st = status -s
 	ca = !git add -A && git commit -av
