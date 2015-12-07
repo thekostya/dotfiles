@@ -1,7 +1,7 @@
 autocmd!
 " Use the Solarized Dark theme
 set background=dark
-colorscheme solarized
+colorscheme elflord
 let g:solarized_termtrans=1
 
 " have command-line completion <Tab> (for filenames, help topics, option names)
