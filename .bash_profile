@@ -1,5 +1,5 @@
 # Add `~/bin` to the `$PATH`
-export PATH="$HOME/.vim/bin:$HOME/bin:/usr/local/go/bin:$PATH";
+export PATH="$HOME/IdeaIC15/bin:$HOME/.vim/bin:$HOME/bin:/usr/local/go/bin:$PATH";
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
