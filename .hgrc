@@ -12,3 +12,21 @@ x.prefix = *
 x.username = k.ryabov
 x.password = dz1jKe
 
+[extensions]
+rebase =
+color =
+hgk =
+record =
+mq =
+hgext.extdiff =
+shelve =
+
+[alias]
+logg = log -G -l18 --style compact
+
+[extdiff]
+cmd.kdiff3 =
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+
