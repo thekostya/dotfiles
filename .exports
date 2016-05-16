@@ -27,4 +27,7 @@ export GREP_OPTIONS='--color=auto';
 
 # golang
 export GOROOT="/usr/local/go"
-export GOPATH="${HOME}/develop/go"
+export GOPATH="${HOME}/dev/go"
+
+# perl local libs
+export PERL5LIB="$HOME/dev/nct/:$PERL5LIB";

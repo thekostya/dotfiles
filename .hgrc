@@ -1,0 +1,32 @@
+[hostfingerprints]
+code.nct = 45:0e:be:6f:73:d9:bd:88:b9:6c:c4:4e:43:b5:d2:24:c8:f8:b1:d9
+
+[web]
+cacerts =
+
+[ui]
+username = Konstantin Ryabov <konstantin.ryabov@ncloudtech.ru>
+
+[auth]
+x.prefix = *
+x.username = k.ryabov
+x.password = dz1jKe
+
+[extensions]
+rebase =
+color =
+hgk =
+record =
+mq =
+hgext.extdiff =
+shelve =
+
+[alias]
+logg = log -G -l18 --style compact
+
+[extdiff]
+cmd.kdiff3 =
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+

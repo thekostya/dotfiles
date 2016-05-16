@@ -1,7 +1,7 @@
 autocmd!
 " Use the Solarized Dark theme
 set background=dark
-colorscheme solarized
+colorscheme elflord
 let g:solarized_termtrans=1
 
 " have command-line completion <Tab> (for filenames, help topics, option names)
@@ -110,6 +110,7 @@ au BufRead,BufNewFile *nginx* set ft=nginx expandtab shiftwidth=4 tabstop=4
 " Perl
 let perl_extended_vars=1
 set equalprg=perltidy
+set expandtab
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
