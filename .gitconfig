@@ -1,5 +1,6 @@
 [alias]
 	l = log --pretty=oneline --graph --abbrev-commit --decorate --all
+	logg = log --pretty=oneline --graph --abbrev-commit --decorate --all
 	s = status -s
 	st = status -s
 	ca = !git add -A && git commit -av
