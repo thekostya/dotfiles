@@ -6,6 +6,7 @@ cacerts =
 
 [ui]
 username = Konstantin Ryabov <konstantin.ryabov@ncloudtech.ru>
+merge = internal:merge
 
 [auth]
 x.prefix = *
@@ -20,13 +21,8 @@ record =
 mq =
 hgext.extdiff =
 shelve =
+histedit=
 
 [alias]
 logg = log -G -l18 --style compact
-
-[extdiff]
-cmd.kdiff3 =
-
-[merge-tools]
-kdiff3.args = $base $local $other -o $output
 
