@@ -1,8 +1,11 @@
 [alias]
-    logg = log --graph --abbrev-commit --decorate --all --pretty=format:'%Cred%h%Creset (%Cblue%cn%Creset) %Cred%d%Creset %Cgreen%s%Creset' --date-order
+    logg = log --graph --abbrev-commit --decorate --all --date-order # --pretty=format:'%Cred%h%Creset (%Cblue%cn%Creset) %Cred%d%Creset %Cgreen%s%Creset'
 	st = status -s
 	ci = commit
 	co = checkout
+    in = !git remote update -p; git log ..@{u}
+    release = flow release
+    out = log @{u}..
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
 	branches = branch -a
@@ -31,6 +34,8 @@
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
+[http]
+    sslVerify = false
 [color]
 	# Use colors
 	ui = auto
@@ -50,16 +55,22 @@
 [diff]
 	# Detect copies as well as renames
 	renames = copies
+    tool = kdiff3
+[difftool]
+    prompt = false
 [help]
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+    ff = false
 [push]
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 	default = simple
+[pull]
+    ff = true
 [user]
 	email = konstantin.ryabov@ncloudtech.ru
 	name = Konstantin Ryabov
