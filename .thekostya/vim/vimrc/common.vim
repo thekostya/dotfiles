@@ -11,13 +11,20 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'fatih/vim-go'
+Plugin 'fatih/molokai'
 Plugin 'vim-perl/vim-perl'
 Plugin 'mattfoster/vim-Perl-Critic'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'majutsushi/tagbar'
 Plugin 'c9s/perlomni.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'KKPMW/moonshine-vim'
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'garyburd/go-explorer'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -26,9 +33,9 @@ filetype plugin indent on
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-set background=dark
+set background=light
 try
-    colorscheme solarized
+    colorscheme moonshine
 catch
 endtry
 let g:solarized_termtrans=1
@@ -286,11 +293,6 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 map j gj
 map k gk
 
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
 " Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
@@ -382,4 +384,10 @@ function! HasPaste()
     en
     return ''
 endfunction
+
+let g:acp_enableAtStartup = 1
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
