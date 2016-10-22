@@ -1,1 +1,0 @@
-/usr/local/go/misc/vim/compiler/go.vim
