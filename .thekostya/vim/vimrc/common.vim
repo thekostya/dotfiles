@@ -218,8 +218,8 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-	au BufWinLeave * mkview
-	au BufWinEnter * silent loadview
+	au BufWinLeave ?* mkview
+	au BufWinEnter ?* silent loadview
 	au FileType html,cheetah set ft=xml
 	au FileType html,cheetah set syntax=html
 endif
@@ -391,3 +391,6 @@ let g:neocomplete#enable_smart_case = 1
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
