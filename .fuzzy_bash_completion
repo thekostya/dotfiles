@@ -152,7 +152,7 @@ _fuzzy_complete()
 # up fuzzy completion
 ################################################################################
 
-declare -A _fuzzy_replaced_specs
+declare _fuzzy_replaced_specs
 
 # the options used to set up the completion:
 _fuzzy_complete_options="-o bashdefault -o default -o filenames -o nospace -v -F _fuzzy_complete"
