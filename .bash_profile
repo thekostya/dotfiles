@@ -1,10 +1,7 @@
-# Add `~/bin` to the `$PATH`
-export PATH="/usr/local/git/bin:$HOME/IdeaIC15/bin:$HOME/.vim/bin:$HOME/bin:/usr/local/go/bin:$PATH";
-
-# Load the shell dotfiles, and then some:
+# Load the shell lotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in ~/.{exports,path,bash_prompt,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -32,9 +29,5 @@ fi
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# Add fuzzy complete for bash
-source ~/.fuzzy_bash_completion
-
 if which plenv > /dev/null; then eval "$(plenv init -)"; fi
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

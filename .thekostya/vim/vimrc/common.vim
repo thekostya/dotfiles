@@ -25,6 +25,7 @@ Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'garyburd/go-explorer'
 Plugin 'tpope/vim-fugitive'
+Plugin 'WolfgangMehner/perl-support'
 
 call vundle#end()
 
@@ -325,66 +326,6 @@ endif
 vnoremap < <gv
 vnoremap > >gv
 
-"------------------------------------------------------------------------------
-" Spell checking
-"------------------------------------------------------------------------------
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-"------------------------------------------------------------------------------
-" Misc
-"------------------------------------------------------------------------------
-
-" easy way to edit reload .vimrc
-"nmap <leader>V :source $MYVIMRC<cr>
-"nmap <leader>v :vsp $MYVIMRC<cr>
-
-"------------------------------------------------------------------------------
-" Helper functions
-"------------------------------------------------------------------------------
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ack \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
-
 let g:acp_enableAtStartup = 1
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -394,3 +335,54 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+function ClearJSONValue(JSONValue)
+    let value = substitute(a:JSONValue,'"','','g')
+    return substitute(value, '[\r\n]$', '','g')
+endfunction
+
+function GetJSONValue(json, valueName)
+    return ClearJSONValue(system("echo '".a:json."' \| jq ". a:valueName))
+endfunction
+
+function GetToken()
+    let currLine = getline('.')
+    let currLineWithJQ = currLine . " 2>/dev/null \| jq .response"
+    let response = system(currLineWithJQ)
+    let g:Token = GetJSONValue(response, ".token")
+    let g:UeserID = GetJSONValue(response, ".id")
+    let g:ClientID = GetJSONValue(response, ".client_id")
+    echo g:Token
+endfunction
+
+function InsertToken(line)
+    return substitute(a:line, 'token=[a-z0-9]\+', 'token='.g:Token, 'g')
+endfunction
+
+function ExecCurrLine()
+    let currLine = getline('.')
+    let currLineWithJQ = currLine . " 2>/dev/null \| jq .response"
+    let currLineWithJQ = InsertToken(currLineWithJQ)
+    let response = system(currLineWithJQ)
+    echo currLineWithJQ . "\n\n" . response
+endfunction
+
+nnoremap <Leader>rt :call GetToken()<Cr>
+nnoremap <Leader>rr :echo ExecCurrLine()<Cr>
+nnoremap <Leader>re :echo g:Token<Cr>
+
+" Golang
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
