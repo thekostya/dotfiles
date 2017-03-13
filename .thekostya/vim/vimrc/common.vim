@@ -10,36 +10,32 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'fatih/vim-go'
-Plugin 'fatih/molokai'
-Plugin 'vim-perl/vim-perl'
-Plugin 'mattfoster/vim-Perl-Critic'
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'majutsushi/tagbar'
-Plugin 'c9s/perlomni.vim'
-Plugin 'scrooloose/nerdtree'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'KKPMW/moonshine-vim'
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
 Plugin 'garyburd/go-explorer'
-Plugin 'tpope/vim-fugitive'
-Plugin 'WolfgangMehner/perl-support'
+Plugin 'fatih/vim-go'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'shougo/neocomplete.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nathanaelkane/vim-indent-guides'
 
 call vundle#end()
+
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
 
 filetype plugin indent on
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-set background=light
+" set background=light
+set background=dark
 try
-    colorscheme moonshine
+    colorscheme solarized
 catch
 endtry
-let g:solarized_termtrans=1
+let g:solarized_termcolors=256
 
 " have command-line completion <Tab> (for filenames, help topics, option names)
 " first list the available options and complete the longest common part, then
@@ -386,3 +382,5 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
+set autowrite
+" au vimenter * NERDTree

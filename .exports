@@ -31,3 +31,6 @@ export GOPATH="${HOME}/dev/go"
 
 # perl local libs
 export PERL5LIB="$HOME/dev/nct/:$PERL5LIB";
+
+# my exports
+export NCT="${HOME}/dev/Work/NCT.pm"
