@@ -57,7 +57,6 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export BUNDLE_GITHUB__COM=e6ea8ad3f5e6d49bca6623c8ecf361e44e7d4675:x-oauth-basic
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -103,3 +102,4 @@ source $ZSH/oh-my-zsh.sh
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/opt/go/libexec
 
+source ~/.github
