@@ -16,6 +16,6 @@ export GREP_OPTIONS='--color=auto';
 
 # golang
 export GOROOT="/usr/local/opt/go/libexec"
-export GOPATH="${HOME}/go
+export GOPATH="${HOME}/go"
 
 
